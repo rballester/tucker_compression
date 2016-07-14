@@ -24,11 +24,11 @@ You are free to **use and modify** the code. If you use it for a publication, **
 
 Our tresholding algorithm exploits the fact that the largest coefficients of the Tucker core tend to concentrate around one spot (the **hot corner**), that usually encodes the lowest-frequency components. Example:
 
-<img src="https://github.com/rballester/tucker_compression/blob/master/images/hot_corner.jpg" width="128">
+<img src="https://github.com/rballester/tucker_compression/blob/master/images/hot_corner.jpg" width="256">
 
 The algorithm runs these steps sequentially:
 
-1. Compute the **Tucker decomposition** of a volume of size I x I x I into a core of size I x I x I.
+1. Compute the **Tucker decomposition** of a volume of size I x I x I into a core of size I x I x I and 3 factor matrices.
 2. **Threshold** the core.
 3. Traverse the result in a **3D zig-zag** fashion, starting from the hot corner (most coefficients survive the thresholding around there).
 4. Encode the result as a set of **remaining values** + a set of I x I x I **bits of presence** (indicating whether each core value survived the threshold or not).
