@@ -57,7 +57,11 @@ function [reco,n_bits] = thresholding_compression(X,fraction,quantization_bits)
     fid = fopen('mask.raw', 'w');
     fwrite(fid,mask,'ubit1');
     fclose(fid);
-    [~,huffman_bits] = system('./rle_huffman');
+    if exist('thresholding/rle_huffman', 'file') ~= 2
+        error('Executable "thresholding/rle_huffman" not found. Compile rle_huffman.cpp');
+    end
+    [~,huffman_bits] = system('thresholding/rle_huffman');
+    delete('mask.raw');
     % We have now all the information to compute the total bits
     n_bits = numel(core_t_q)*quantization_bits + ... % Core
         + str2double(huffman_bits) + ... % Bits of presence
