@@ -12,6 +12,6 @@ function X = log_dequantize(X_quantized,maximum,quantization_bits,use_hot_corner
     signs = sign(X_quantized);
     X(start:end) = X_quantized(start:end)./(2^(quantization_bits-1)-1);
     X(start:end) = X(start:end).*maximum;
-    X(start:end) = double(tenfun(@(x)(2.^abs(x)-1), tensor( X(start:end) )));
+    X(start:end) = 2.^abs(X(start:end))-1;
     X(start:end) = X(start:end).*signs(start:end);
 end

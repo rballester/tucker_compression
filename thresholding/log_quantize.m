@@ -18,7 +18,7 @@ function [X_quantized, maximum] = log_quantize(X,quantization_bits,assume_hot_co
         start = 2;
     end
     signs = sign(X);
-    X_quantized(start:end) = double(tenfun(@(x)(log2(1 + abs(x))), tensor( X(start:end) )));
+    X_quantized(start:end) = log2(1 + abs(X(start:end)));
     X_quantized(start:end) = (2^(quantization_bits-1)-1)*X_quantized(start:end);
     maximum = log2(1 + max(abs(X(start:end)))); % Normalization factor
     if maximum > 0
