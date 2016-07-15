@@ -47,10 +47,10 @@ function [reco,n_bits] = thresholding_compression(X,fraction)
     fclose(fid);
     [~,huffman_bits] = system('./rle_huffman');
     % We have now all the information to compute the total bits
-    n_bits = numel(core_t_q)*9 + 32 + ... % Core
+    n_bits = numel(core_t_q)*9 + ... % Core
         + str2double(huffman_bits) + ... % Bits of presence
-        + size(X,1)*R(1)*9 + ... % U{1}
-        + size(X,2)*R(2)*9 + ... % U{2}
-        + size(X,3)*R(3)*9; % U{3}
+        + numel(U{1})*9 + ... % U{1}
+        + numel(U{2})*9 + ... % U{2}
+        + numel(U{3})*9; % U{3}
     reco = ttm(core2(1:R(1),1:R(2),1:R(3)),U,[1,2,3],'decompress');
 end
