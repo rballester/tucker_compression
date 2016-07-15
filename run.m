@@ -24,7 +24,10 @@ fprintf('Compressing...\n');
 tic;
 [reco,n_bits] = thresholding_compression(X,0.025,9);
 toc
+fprintf('\n');
 fprintf('Compression rate: 1:%f\n',original_bits/n_bits);
+fprintf('Bits per value: %f\n',n_bits/prod(I));
+fprintf('\n');
 fprintf('Relative error: %f\n',norm(X(:)-reco(:))/norm(X(:)));
 fprintf('RMSE: %f\n',sqrt(sum((X(:)-reco(:)).^2)/prod(I)));
 
