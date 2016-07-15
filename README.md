@@ -10,9 +10,9 @@ Try out the code with the example script ```run.m```:
 
 1. Download the [bonsai data set](http://www.tc18.org/code_data_set/3D_greyscale/bonsai.raw.gz) (16MB, 8-bit unsigned int) and unpack it as ```bonsai.raw``` into the project folder.
 1. Compile the C++ file ```rle_huffman.cpp``` into an executable called ```rle_huffman```.
-2. In the MATLAB interpreter, go to the project folder and call ```run```.
+2. In the MATLAB interpreter, go to the folder and call ```run```.
 
-For example, ```fraction=0.01``` yields below 3.5 RMSE and 1:44 compression rate (left original, right compressed): 
+For example, ```fraction=0.025``` yields below 2.4 RMSE and 1:21 compression rate (left image is the original, right is the reconstructed): 
 
 <img src="https://github.com/rballester/tucker_compression/blob/master/images/original_vs_reconstructed.jpg" width="512">
 
@@ -30,7 +30,7 @@ The algorithm runs these steps sequentially:
 
 1. Compute the **Tucker decomposition** of a volume of size I x I x I into a core of size I x I x I and 3 factor matrices.
 2. **Threshold** the core.
-3. Traverse the result in a **3D zig-zag** fashion, starting from the hot corner (most coefficients survive the thresholding around there).
+3. Traverse the result in a **3D zig-zag** fashion, starting from the hot corner (where most coefficients survive the thresholding).
 4. Encode the result as a set of **remaining values** + a set of I x I x I **bits of presence** (indicating whether each core value survived the threshold or not).
 5. **Quantize logarithmically** the remaining values. Quantize also the Tucker factor matrices.
 6. Compress the stream of bits-of-presence using **run-length** encoding, followed by **Huffman encoding**.
