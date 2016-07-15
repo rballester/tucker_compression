@@ -32,9 +32,9 @@ Our tresholding algorithm exploits the fact that the largest coefficients of the
 
 The algorithm runs these steps sequentially:
 
-1. Compute the **Tucker decomposition** of a volume of size I x I x I into a core of size I x I x I and 3 factor matrices.
+1. Compute the **Tucker decomposition** of a volume of size I1 * I2 * I3 into a core of size I1 * I2 * I3 and 3 factor matrices.
 2. **Threshold** the core.
 3. Traverse the result in a **3D zig-zag** fashion, starting from the hot corner (where most coefficients survive the thresholding).
-4. Encode the result as a set of **remaining values** + a set of I x I x I **bits of presence** (indicating whether each core value survived the threshold or not).
+4. Encode the result as a set of **remaining values** + a set of I1 * I2 * I3 **bits of presence** (indicating whether each core value survived the threshold or not).
 5. **Quantize logarithmically** the remaining values. Quantize also the Tucker factor matrices.
 6. Compress the stream of bits-of-presence using **run-length** encoding, followed by **Huffman encoding**.

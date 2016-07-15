@@ -7,14 +7,14 @@ addpath(genpath('.'));
 % Parameters
 filename = 'bonsai.raw';
 precision = 'uint8';
-sizes = [256,256,256]; % Size of the tensor
+I = [256,256,256]; % Size of the tensor
 
 % Read the volume into X
 fid = fopen(filename);
 if (fid == -1)
    error('Could not open "%s"', filename);   
 end
-X = reshape(fread(fid, prod(sizes),sprintf('*%s',precision)),sizes);
+X = reshape(fread(fid, prod(I),sprintf('*%s',precision)),I);
 original_bits = getfield(whos('X'),'bytes')*8; % Count the input's number of bits
 fclose(fid);
 
@@ -26,10 +26,10 @@ tic;
 toc
 fprintf('Compression rate: 1:%f\n',original_bits/n_bits);
 fprintf('Relative error: %f\n',norm(X(:)-reco(:))/norm(X(:)));
-fprintf('RMSE: %f\n',sqrt(sum((X(:)-reco(:)).^2)/prod(sizes)));
+fprintf('RMSE: %f\n',sqrt(sum((X(:)-reco(:)).^2)/prod(I)));
 
 % Show a slice of the original tensor, together with the
 % reconstruction and the absolute error
-slice1 = X(:,:,round(sizes(3)/2));
-slice2 = reco(:,:,round(sizes(3)/2));
+slice1 = X(:,:,round(I(3)/2));
+slice2 = reco(:,:,round(I(3)/2));
 imshow([slice1 slice2 max(X(:))-abs(slice1-slice2)],[min(X(:)),max(X(:))]);

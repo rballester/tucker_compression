@@ -1,8 +1,10 @@
-% Given a cube tensor X, returns a vector containing the indices resulting 
+% Given a 3D tensor X, returns a vector containing the indices resulting 
 % from visiting all its elements sequentially, following a 3D zigzag 
 % pattern that develops from a corner in the fashion of a 3D
 % generalization of the JPEG zigzag scheme for quantization 
 % (http://en.wikipedia.org/wiki/JPEG#Entropy_coding)
+%
+% R: the sizes of the core tensor
 
 function result = zigzag(R)
 
