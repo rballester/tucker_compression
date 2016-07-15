@@ -22,7 +22,7 @@ fclose(fid);
 X = double(X); % We need doubles for the compression algorithm
 fprintf('Compressing...\n');
 tic;
-[reco,n_bits] = thresholding_compression(X,0.025);
+[reco,n_bits] = thresholding_compression(X,0.025,9);
 toc
 fprintf('Compression rate: 1:%f\n',original_bits/n_bits);
 fprintf('Relative error: %f\n',norm(X(:)-reco(:))/norm(X(:)));
