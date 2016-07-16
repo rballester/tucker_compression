@@ -62,7 +62,7 @@ int main(int argc, char* argv[])
 		            		result[counter] = (k-1)*R1*R2 + (j-1)*R1 + (i-1) + 1;
 		            		counter++;
 		            		if (i == R1 && j == R2 && k == R3) {
-						ofstream output("../indices.raw",ios::out | ios::binary);
+						ofstream output("indices.raw",ios::out | ios::binary);
 						output.write((char*)result,R1*R2*R3*sizeof(int));
 						output.close();
 		                		exit(0);
