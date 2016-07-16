@@ -13,7 +13,7 @@ The core function is ```thresholding_compression(X,fraction,quantization_bits)``
 Try out the code with the example script ```run.m```:
 
 1. Download the [bonsai data set](http://www.tc18.org/code_data_set/3D_greyscale/bonsai.raw.gz) (16MB, 8-bit unsigned int) and unpack it as ```bonsai.raw``` into the project folder.
-2. Compile the C++ file ```thresholding/rle_huffman.cpp``` into an executable ```thresholding/rle_huffman```.
+2. Compile the C++ file ```thresholding/rle_huffman.cpp``` into an executable ```thresholding/rle_huffman```, and ```thresholding/zigzag.cpp``` into ```thresholding/zigzag```.
 3. In the MATLAB interpreter, go to the project folder and call ```run```.
 
 For example, ```fraction=0.025```, ```quantization_bins=9``` yields below 2.4 RMSE and 1:21 compression rate (left image is a slice from the original, right one from the reconstructed): 

@@ -33,7 +33,11 @@ function [reco,n_bits] = thresholding_compression(X,fraction,quantization_bits)
     
     % Traverse the core in zigzag, and separate it as set of surviving
     % values + sequence of bits of presence
-    zigzag_indices = zigzag(size(X));
+    system(sprintf('thresholding/zigzag %d %d %d',size(X)));
+    fid = fopen('indices.raw','r');
+    zigzag_indices = fread(fid,numel(X(:)),'int32');
+    fclose(fid);
+    delete('indices.raw');
     core_t = core_t(zigzag_indices);
     presence = (core_t ~= 0);
     core_t(core_t==0) = [];
@@ -72,5 +76,4 @@ function [reco,n_bits] = thresholding_compression(X,fraction,quantization_bits)
         + numel(U{1})*quantization_bits + ... % U{1}
         + numel(U{2})*quantization_bits + ... % U{2}
         + numel(U{3})*quantization_bits; % U{3}
-    
 end
