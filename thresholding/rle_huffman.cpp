@@ -175,7 +175,7 @@ int main()
 	 ++it) {
 	int key = (int) (it->first);
 	int cost = it->second.end() - it->second.begin();
-	finalSize += cost * frequencies[key];
+	finalSize += cost * frequencies[key] + 32 + cost;
     }
     std::cout << finalSize << std::endl;
 

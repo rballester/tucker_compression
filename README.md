@@ -16,7 +16,7 @@ Try out the code with the example script ```run.m```:
 2. Compile the C++ file ```thresholding/rle_huffman.cpp``` into an executable ```thresholding/rle_huffman```, and ```thresholding/zigzag.cpp``` into ```thresholding/zigzag```.
 3. In the MATLAB interpreter, go to the project folder and call ```run```.
 
-For example, ```rmse=2``` yields about 2.1 RMSE and 1:17 compression rate (left image is a slice from the original, right one from the reconstructed): 
+For example, ```thresholding_compression(X,'rmse',2)``` yields about 2.1 RMSE and 1:17 compression rate (left image is a slice from the original, right one from the reconstructed): 
 
 <img src="https://github.com/rballester/tucker_compression/blob/master/images/original_vs_reconstructed.jpg" width="512">
 
