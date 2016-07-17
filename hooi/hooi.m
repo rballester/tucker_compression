@@ -14,37 +14,39 @@ function [core,U] = hooi(X,R,init,n_iterations)
             U{n} = randn(size(X,n),R(n));
         elseif strcmp(init,'dct')
             U{n} = dct_matrix(size(X,n),R(n));
-        elseif strcmp(init,'hosvd')
-            % Initializing with HOSVD is like doing one iteration more,
-            % with the difference that in the first one the identity matrix
-            % is used for projection
-            n_iterations = n_iterations+1;
-        else
+        elseif ~strcmp(init,'hosvd')
             error('Initialization method must be "random","dct" or "hosvd"');
         end
     end
     
     % Higher-order orthogonal iteration
-    for it = 1:n_iterations
+    %
+    % Initializing with HOSVD is like doing one iteration more,
+    % with the difference that in the first one we don't project to get the
+    % core
+    for it = 1:n_iterations+strcmp(init,'hosvd')
         for n = 1:N
             modes = 1:N;
             modes(n) = [];
             if it == 1 && strcmp(init,'hosvd')
-                X_proj = X;
+                X_unf = unfold(X,n);
             else
                 X_proj = ttm(X,{U{modes(:)}},modes,'compress');
+                X_unf = unfold(X_proj,n);
             end
-            X_unf = unfold(X_proj,n);
             if R(n) < size(X,n) % A few eigenvectors are sought
                 [U{n},~] = eigs(X_unf*X_unf',R(n));
             else % All eigenvectors are sought
-                [V,D] = eig(X_unf*X_unf'); 
+                [V,D] = eig(X_unf*X_unf');
                 % Eig returns unsorted eigenvectors, we have to sort them
                 [~,indices] = sort(diag(D));
                 U{n} = V(:, indices(end:-1:1));
             end
         end
     end
-    core = ttm(X_proj,{U{N}},[N],'compress');
-    
+    if n_iterations == 0
+        core = ttm(X,{U{:}},1:N,'compress');
+    else
+        core = ttm(X_proj,{U{N}},N,'compress');
+    end
 end
