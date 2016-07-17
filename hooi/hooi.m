@@ -45,7 +45,7 @@ function [core,U] = hooi(X,R,init,n_iterations)
         end
     end
     if n_iterations == 0
-        core = ttm(X,{U{:}},1:N,'compress');
+        core = ttm(X,U,1:N,'compress');
     else
         core = ttm(X_proj,{U{N}},N,'compress');
     end

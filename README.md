@@ -4,11 +4,11 @@ This is a MATLAB implementation of the thresholding compression method described
 
 ## Usage
 
-The core function is ```thresholding_compression(X,fraction,quantization_bits)```, where:
+The core function is ```thresholding_compression(X,metric,target)```, where:
 
 - ```X``` is a volume 
-- 0 < ```fraction``` <= 1 determines what fraction of elements should survive the thresholding step
-- 2 <= ```quantization_bits``` determines the number of quantization bins (suggested standard value: 9)
+- ```metric``` is "relative error", "rmse", or "psnr"
+- ```target``` specifies the desired target accuracy (according to ```metric```)
 
 Try out the code with the example script ```run.m```:
 
@@ -16,7 +16,7 @@ Try out the code with the example script ```run.m```:
 2. Compile the C++ file ```thresholding/rle_huffman.cpp``` into an executable ```thresholding/rle_huffman```, and ```thresholding/zigzag.cpp``` into ```thresholding/zigzag```.
 3. In the MATLAB interpreter, go to the project folder and call ```run```.
 
-For example, ```fraction=0.025```, ```quantization_bins=9``` yields below 2.4 RMSE and 1:21 compression rate (left image is a slice from the original, right one from the reconstructed): 
+For example, ```rmse=2``` yields about 2.1 RMSE and 1:17 compression rate (left image is a slice from the original, right one from the reconstructed): 
 
 <img src="https://github.com/rballester/tucker_compression/blob/master/images/original_vs_reconstructed.jpg" width="512">
 
