@@ -108,7 +108,9 @@ function [reco,n_bits] = thresholding_compression(X,metric,target)
     reco = ttm(core2(1:R(1),1:R(2),1:R(3)),U2,[1,2,3],'decompress');
     
     % We have now all the information to compute the total bits
-    n_bits = numel(core_t_q)*q + ... % Core
+    n_bits = numel(core_t_q(2:end))*q + ... % Core coefficients
+        + 64*4 + ... % The core' and matrices' maxima are needed
+        + 8 + ... % How many quantization bits are used
         + str2double(huffman_bits) + ... % Bits of presence
         + numel(U2{1})*q + ... % U{1}
         + numel(U2{2})*q + ... % U{2}

@@ -1,6 +1,6 @@
 # Tucker Volume Compression
 
-This is a MATLAB implementation of the thresholding compression method described in the paper [*Lossy Volume Compression Using Tucker Truncation and Thresholding*](http://www.ifi.uzh.ch/en/vmml/publications/lossycompression.html). For more details on the Tucker transform and tensor-based volume compression, check out my [slides](http://www.ifi.uzh.ch/dam/jcr:00000000-73a0-83b8-ffff-ffffd48b8a42/tensorapproximation.pdf).
+This is a MATLAB implementation (**with modifications and improvements**) of the thresholding compression method described in the paper [*Lossy Volume Compression Using Tucker Truncation and Thresholding*](http://www.ifi.uzh.ch/en/vmml/publications/lossycompression.html). For more details on the Tucker transform and tensor-based volume compression, check out my [slides](http://www.ifi.uzh.ch/dam/jcr:00000000-73a0-83b8-ffff-ffffd48b8a42/tensorapproximation.pdf).
 
 ## Usage
 
@@ -38,3 +38,7 @@ The algorithm runs these steps sequentially:
 4. Encode the result as a set of **remaining values** + a set of I1 * I2 * I3 **bits of presence** (indicating whether each core value survived the threshold or not).
 5. **Quantize logarithmically** the remaining values. Quantize also the Tucker factor matrices.
 6. Compress the stream of bits-of-presence using **run-length** encoding, followed by **Huffman encoding**.
+
+## Why Tucker?
+
+Tensor-based compression is **non-local**, in the sense that all compressed coefficients contribute to the transformation of each individual voxel (such as Fourier-based transforms, and in contrast to e.g. wavelet transforms or JPEG for images, which uses a localized DCT transform). This can be computationally demanding but decorrelates the data at all many spatial scales, thus achieving **very competitive compression rates**.
